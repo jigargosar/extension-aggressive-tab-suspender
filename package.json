@@ -1,0 +1,15 @@
+{
+  "name": "extension-aggressive-tab-suspender",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "claude-cli-browser-terminal": "file:C:/Users/jigar/projects/claude-cli-browser-terminal/published-versions/claude-cli-browser-terminal-0.1.7.tgz"
+  }
+}
