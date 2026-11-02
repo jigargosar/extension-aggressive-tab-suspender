@@ -74,7 +74,8 @@ async function markAsleep(tabId) {
   }
 }
 
-// True when the cursor is in a text field, dropdown or editable area in any frame. Discarding would lose the input.
+// True when the cursor is in a text field or editable area that holds text, in any frame. Discarding would lose it.
+// Empty fields, checkboxes, buttons and dropdowns don't count.
 // When Chrome blocks the check (chrome:// and Web Store pages), the tab counts as not editing.
 async function isEditing(tabId) {
   try {
@@ -82,7 +83,11 @@ async function isEditing(tabId) {
       target: { tabId, allFrames: true },
       func: () => {
         const el = document.activeElement;
-        return Boolean(el && (el.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName)));
+        if (!el) return false;
+        if (el.isContentEditable) return el.textContent.trim() !== "";
+        if (el.tagName === "TEXTAREA") return el.value.trim() !== "";
+        const typed = ["text", "search", "email", "url", "tel", "password", "number"];
+        return el.tagName === "INPUT" && typed.includes(el.type) && el.value.trim() !== "";
       },
     });
     return frames.some((frame) => frame.result);

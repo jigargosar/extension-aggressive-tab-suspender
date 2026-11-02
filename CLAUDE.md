@@ -6,9 +6,13 @@ This Chrome extension frees memory by discarding idle tabs.
 - Active, pinned and localhost tabs are never discarded.
 - Clicking the toolbar icon turns discarding on or off.
 - A badge on the icon shows ON or OFF.
-- A tab with the cursor in an input, textarea, select or editable area is postponed, not discarded.
+- A tab with the cursor in a text input, textarea or editable area that holds text is postponed, not discarded.
+
+# Tasks
+
+- Research a library that detects unsaved form input, to replace the basic check in `isEditing()`.
 
 # Pending tests
 
-- Empty fields: test a page with empty inputs and textareas. The check looks only at where the cursor is, not at content, so an empty focused field also postpones the discard. Confirm this is the wanted behavior.
+- Empty fields: test a page with the cursor in an empty input or textarea. It should be discarded, not postponed.
 - Hidden fields: test a page with hidden inputs or textareas that hold text. The check ignores them, so typed text in a field without the cursor is not protected.
